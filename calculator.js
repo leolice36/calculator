@@ -113,7 +113,7 @@ equalBtn.addEventListener('click', () => {
     enableAllBtn()
     equals()
     equalBtn.classList.add("disabled")
-    const numbersAnddeci = document.querySelectorAll('.numberBtn', '#del');
+    const numbersAnddeci = document.querySelectorAll('.numberBtn', '.del');
     numbersAnddeci.forEach(button => {
         button.classList.add("disabled")
     })
