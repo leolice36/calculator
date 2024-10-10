@@ -17,7 +17,13 @@ const multiply = function(a,b) {
   };
 
 const divide = function(a,b) {
-    return a / b
+    if (b == 0){
+        alert('NOOOOO!')
+        clearEverything()
+    } else{
+        return a / b
+    }
+    
   };
 
 function operate(operator,firstNum,secondNum){
@@ -94,6 +100,9 @@ opBtn.forEach(button => {
     })
 });
 
+function roundNumberDisplayed(){
+
+}
 
 const equalBtn = document.querySelector('#equal');
 
@@ -103,20 +112,27 @@ function equals(){
     } else {
         num2 = Number(display.textContent);
         display.textContent = operate(opSymbol,num1,num2)
-        num1 = Number(display.textContent);
-        opSymbol = '';
+        if (opSymbol === undefined 
+            && num1 === undefined
+            && num2 === undefined
+        ){
+            return
+        } else {
+            num1 = Number(display.textContent);
+            opSymbol = '';
+        }
     }
     console.table({opSymbol,num1,num2}) 
 }
 
 equalBtn.addEventListener('click', () => {
     enableAllBtn()
-    equals()
     equalBtn.classList.add("disabled")
     const numbersAnddel = document.querySelectorAll('.numberBtn, .delete');
     numbersAnddel.forEach(button => {
         button.classList.add("disabled")
     })
+    equals()
 })
 
 
@@ -126,13 +142,19 @@ numDel.addEventListener('click', () => {
     display.textContent = display.textContent.slice(0,-1)
 });
 
-const numAc = document.querySelector('#AC');
-numAc.addEventListener('click', () => {
+function clearEverything(){
     display.textContent = '';
     num1 = undefined;
     num2 = undefined;
     opSymbol = undefined;
     console.table({opSymbol,num1,num2})
     enableAllBtn()
+    const opBtnInside = document.querySelectorAll('.opBtn')
+    opBtnInside.forEach(button => {button.classList.add("disabled")}); 
+}
+
+const numAc = document.querySelector('#AC');
+numAc.addEventListener('click', () => {
+    clearEverything()
 })
 
