@@ -66,11 +66,10 @@ const opBtn = document.querySelectorAll('.opBtn');
 opBtn.forEach(button => {
     button.addEventListener('click', () =>{
         console.table({opSymbol,num1,num2})
-        enableAllBtn(); 
+        enableAllBtn();
         if (!opSymbol){
         opSymbol = button.dataset.value;
         } 
-        
         
         if (!num1){
             num1 = Number(display.textContent);
@@ -89,8 +88,9 @@ opBtn.forEach(button => {
             display.textContent = '';
             
         }
-        console.table({opSymbol,num1,num2}) 
-        button.classList.add("disabled");
+        console.table({opSymbol,num1,num2})
+        const opBtnInside = document.querySelectorAll('.opBtn')
+        opBtnInside.forEach(button => {button.classList.add("disabled")}); 
     })
 });
 
@@ -98,8 +98,8 @@ opBtn.forEach(button => {
 const equalBtn = document.querySelector('#equal');
 
 function equals(){
-    if (!num1){
-        num1 = Number(display.textContent);
+    if (!num1) {
+        return;
     } else {
         num2 = Number(display.textContent);
         display.textContent = operate(opSymbol,num1,num2)
@@ -114,12 +114,9 @@ equalBtn.addEventListener('click', () => {
     equals()
     equalBtn.classList.add("disabled")
     const numbersAnddel = document.querySelectorAll('.numberBtn, .delete');
-    console.table({numbersAnddel})
     numbersAnddel.forEach(button => {
         button.classList.add("disabled")
     })
-    console.table({numbersAnddel})
-    
 })
 
 
