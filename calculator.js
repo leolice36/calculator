@@ -46,7 +46,7 @@ function operate(operator,firstNum,secondNum){
 const display = document.querySelector('#display');
 
 //Enable/disable functions
-function enableAllBtn(exceptionBtn) {
+function enableAllBtnExcept(exceptionBtn) {
     let allBtn = document.querySelectorAll('button');
     allBtn.forEach(btn => {
         if (btn != exceptionBtn){
@@ -63,14 +63,14 @@ const numBtn = document.querySelectorAll('.numberBtn');
 numBtn.forEach(button => {
     button.addEventListener('click', () =>{
         display.textContent += button.textContent;
-        enableAllBtn(decimalBtn);
+        enableAllBtnExcept(decimalBtn);
     })
 });
 
 const decimalBtn = document.querySelector('#decimal');
 decimalBtn.addEventListener('click', () => {
     display.textContent += decimalBtn.textContent;
-    enableAllBtn()
+    enableAllBtnExcept()
     decimalBtn.classList.add('disabled');
 })
 
@@ -80,7 +80,7 @@ const opBtn = document.querySelectorAll('.opBtn');
 opBtn.forEach(button => {
     button.addEventListener('click', () =>{
         console.table({opSymbol,num1,num2})
-        enableAllBtn(numDel);
+        enableAllBtnExcept(numDel);
         if (!opSymbol){
         opSymbol = button.dataset.value;
         } 
@@ -134,7 +134,7 @@ function equals(){
 }
 
 equalBtn.addEventListener('click', () => {
-    enableAllBtn()
+    enableAllBtnExcept()
     equalBtn.classList.add("disabled")
     const numbersAnddel = document.querySelectorAll('.numberBtn, .delete');
     numbersAnddel.forEach(button => {
@@ -149,9 +149,9 @@ const numDel = document.querySelector('#del');
 numDel.addEventListener('click', () => {
     display.textContent = display.textContent.slice(0,-1)
     if (display.textContent.includes('.')){
-        enableAllBtn(decimalBtn)
+        enableAllBtnExcept(decimalBtn)
     } else {
-        enableAllBtn()
+        enableAllBtnExcept()
     }
 });
 
@@ -161,7 +161,7 @@ function clearEverything(){
     num2 = undefined;
     opSymbol = undefined;
     console.table({opSymbol,num1,num2})
-    enableAllBtn()
+    enableAllBtnExcept()
     const opBtnInside = document.querySelectorAll('.opBtn')
     opBtnInside.forEach(button => {button.classList.add("disabled")}); 
 }
