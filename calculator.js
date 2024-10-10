@@ -26,18 +26,32 @@ const divide = function(a,b) {
     
   };
 
+  function roundToDecimal(num, decimalPlaces) {
+    const factor = Math.pow(10, decimalPlaces);
+    return Math.round(num * factor) / factor;
+  }
+
+  const displaySize = 8;
+
+  function roundToDisplaySize(num){
+    
+    const parts = num.toString().split('.');
+    const decimalPlace = displaySize - parts[0].length;
+    return roundToDecimal(num,decimalPlace)
+  }
+
 function operate(operator,firstNum,secondNum){
     if (operator === '+'){
-        return add(firstNum,secondNum)
+        return roundToDisplaySize(add(firstNum,secondNum))
     }
     else if (operator === '-'){
-        return subtract(firstNum,secondNum)
+        return roundToDisplaySize(subtract(firstNum,secondNum))
     }
     else if (operator === '*'){
-        return multiply(firstNum,secondNum)
+        return roundToDisplaySize(multiply(firstNum,secondNum))
     }
     else if (operator === '/'){
-        return divide(firstNum,secondNum)
+        return roundToDisplaySize(divide(firstNum,secondNum))
     } else {
         return num1
     }
@@ -62,8 +76,12 @@ const numBtn = document.querySelectorAll('.numberBtn');
 
 numBtn.forEach(button => {
     button.addEventListener('click', () =>{
-        display.textContent += button.textContent;
-        enableAllBtnExcept(decimalBtn);
+        if (display.textContent.length === displaySize){
+            return
+        } else {
+            display.textContent += button.textContent;
+            enableAllBtnExcept(decimalBtn);
+        }
     })
 });
 
@@ -108,9 +126,6 @@ opBtn.forEach(button => {
     })
 });
 
-function roundNumberDisplayed(){
-
-}
 
 const equalBtn = document.querySelector('#equal');
 
