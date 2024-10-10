@@ -151,7 +151,7 @@ function equals(){
 equalBtn.addEventListener('click', () => {
     enableAllBtnExcept()
     equalBtn.classList.add("disabled")
-    const numbersAnddel = document.querySelectorAll('.numberBtn, .delete');
+    const numbersAnddel = document.querySelectorAll('.numberBtn, .delete, .sign');
     numbersAnddel.forEach(button => {
         button.classList.add("disabled")
     })
@@ -184,6 +184,19 @@ function clearEverything(){
 const numAc = document.querySelector('#AC');
 numAc.addEventListener('click', () => {
     clearEverything()
+})
+
+
+const plusMinus = document.querySelector('#sign');
+plusMinus.addEventListener('click', () => {
+    if (!display.textContent.includes("-")){
+        display.textContent = '-' + display.textContent;
+        console.log('yes')
+    } else {
+        display.textContent = display.textContent.slice(1);
+        console.log('no')
+    }
+    
 })
 
 //keyboard link
