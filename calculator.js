@@ -46,10 +46,12 @@ function operate(operator,firstNum,secondNum){
 const display = document.querySelector('#display');
 
 //Enable/disable functions
-function enableAllBtn() {
+function enableAllBtn(exceptionBtn) {
     let allBtn = document.querySelectorAll('button');
     allBtn.forEach(btn => {
-        btn.classList.remove("disabled");
+        if (btn != exceptionBtn){
+            btn.classList.remove("disabled");
+        }
     })
 }
 
@@ -61,10 +63,16 @@ const numBtn = document.querySelectorAll('.numberBtn');
 numBtn.forEach(button => {
     button.addEventListener('click', () =>{
         display.textContent += button.textContent;
-        enableAllBtn();
+        enableAllBtn(decimalBtn);
     })
 });
 
+const decimalBtn = document.querySelector('#decimal');
+decimalBtn.addEventListener('click', () => {
+    display.textContent += decimalBtn.textContent;
+    enableAllBtn()
+    decimalBtn.classList.add('disabled');
+})
 
 //operation button functions
 
@@ -72,7 +80,7 @@ const opBtn = document.querySelectorAll('.opBtn');
 opBtn.forEach(button => {
     button.addEventListener('click', () =>{
         console.table({opSymbol,num1,num2})
-        enableAllBtn();
+        enableAllBtn(numDel);
         if (!opSymbol){
         opSymbol = button.dataset.value;
         } 
@@ -95,7 +103,7 @@ opBtn.forEach(button => {
             
         }
         console.table({opSymbol,num1,num2})
-        const opBtnInside = document.querySelectorAll('.opBtn')
+        const opBtnInside = document.querySelectorAll('.opBtn, .equal')
         opBtnInside.forEach(button => {button.classList.add("disabled")}); 
     })
 });
@@ -140,6 +148,11 @@ equalBtn.addEventListener('click', () => {
 const numDel = document.querySelector('#del');
 numDel.addEventListener('click', () => {
     display.textContent = display.textContent.slice(0,-1)
+    if (display.textContent.includes('.')){
+        enableAllBtn(decimalBtn)
+    } else {
+        enableAllBtn()
+    }
 });
 
 function clearEverything(){
@@ -184,8 +197,12 @@ document.addEventListener('keydown', function(event) {
             if (ACBtn && !ACBtn.classList.contains('disabled')) ACBtn.click(); 
             break;
         case 'Backspace': 
-            const delBtn = document.querySelector(`#AC`);
+            const delBtn = document.querySelector(`#del`);
             if (delBtn && !delBtn.classList.contains('disabled')) delBtn.click(); 
+            break;
+        case '.':
+            const decimalBtn = document.querySelector(`#decimal`);
+            if (decimalBtn && !decimalBtn.classList.contains('disabled')) decimalBtn.click(); 
             break;
     }
 })
