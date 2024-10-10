@@ -158,3 +158,34 @@ numAc.addEventListener('click', () => {
     clearEverything()
 })
 
+//keyboard link
+document.addEventListener('keydown', function(event) {
+    // Mapping numbers and decimal
+    if (/\d|\./.test(event.key)) {  // If a number (0-9) or a decimal point is pressed
+      const numberBtn = document.querySelector(`.numberBtn[value="${event.key}"]`);
+      if (numberBtn && !numberBtn.classList.contains('disabled')) numberBtn.click(); // Trigger the corresponding button click
+    }
+
+    // Mapping operators and equals
+    switch (event.key) {
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+            const opBtn = document.querySelector(`.opBtn[value="${event.key}"]`);
+            if (opBtn && !opBtn.classList.contains('disabled')) opBtn.click(); // Trigger operator button click
+            break;
+        case 'Enter': // Enter key for equals ('=')
+            const equalsBtn = document.querySelector(`#equal`);
+            if (equalsBtn && !equalBtn.classList.contains('disabled')) equalsBtn.click(); // Trigger equals button click
+            break;
+        case 'Delete': 
+            const ACBtn = document.querySelector(`#AC`);
+            if (ACBtn && !ACBtn.classList.contains('disabled')) ACBtn.click(); 
+            break;
+        case 'Backspace': 
+            const delBtn = document.querySelector(`#AC`);
+            if (delBtn && !delBtn.classList.contains('disabled')) delBtn.click(); 
+            break;
+    }
+})
