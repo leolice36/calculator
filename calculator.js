@@ -20,6 +20,7 @@ const divide = function(a,b) {
     if (b == 0){
         alert('NOOOOO!')
         clearEverything()
+        return ''
     } else{
         return a / b
     }
@@ -34,10 +35,14 @@ const divide = function(a,b) {
   const displaySize = 8;
 
   function roundToDisplaySize(num){
+    if (num === ''){
+        return
+    } else {5
+        const parts = num.toString().split('.');
+        const decimalPlace = displaySize - parts[0].length;
+        return roundToDecimal(num,decimalPlace)
+    }
     
-    const parts = num.toString().split('.');
-    const decimalPlace = displaySize - parts[0].length;
-    return roundToDecimal(num,decimalPlace)
   }
 
 function operate(operator,firstNum,secondNum){
@@ -191,10 +196,8 @@ const plusMinus = document.querySelector('#sign');
 plusMinus.addEventListener('click', () => {
     if (!display.textContent.includes("-")){
         display.textContent = '-' + display.textContent;
-        console.log('yes')
     } else {
         display.textContent = display.textContent.slice(1);
-        console.log('no')
     }
     
 })
@@ -231,6 +234,10 @@ document.addEventListener('keydown', function(event) {
         case '.':
             const decimalBtn = document.querySelector(`#decimal`);
             if (decimalBtn && !decimalBtn.classList.contains('disabled')) decimalBtn.click(); 
+            break;
+        case '=':
+            const signChange = document.querySelector(`#sign`);
+            if (signChange && !signChange.classList.contains('disabled')) signChange.click(); 
             break;
     }
 })
